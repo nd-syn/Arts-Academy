@@ -8,39 +8,31 @@
   <!-- Fonts & icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
 
   <style>
-    /* ===== Material 3 Dark Theme ===== */
+    /* ===== Classic Modern Theme ===== */
     :root {
-      --md-sys-color-primary: #6750A4;
-      --md-sys-color-on-primary: #FFFFFF;
-      --md-sys-color-primary-container: #4F378B;
-      --md-sys-color-on-primary-container: #EADDFF;
-      --md-sys-color-secondary: #CCC2DC;
-      --md-sys-color-on-secondary: #332D41;
-      --md-sys-color-secondary-container: #4A4458;
-      --md-sys-color-on-secondary-container: #E8DEF8;
-      --md-sys-color-tertiary: #EFB8C8;
-      --md-sys-color-on-tertiary: #492532;
-      --md-sys-color-tertiary-container: #633B48;
-      --md-sys-color-on-tertiary-container: #FFD8E4;
-      --md-sys-color-error: #F2B8B5;
-      --md-sys-color-on-error: #601410;
-      --md-sys-color-error-container: #8C1D18;
-      --md-sys-color-on-error-container: #F9DEDC;
-      --md-sys-color-background: #141218;
-      --md-sys-color-on-background: #E6E1E5;
-      --md-sys-color-surface: #141218;
-      --md-sys-color-on-surface: #E6E1E5;
-      --md-sys-color-surface-variant: #49454F;
-      --md-sys-color-on-surface-variant: #CAC4D0;
-      --md-sys-color-outline: #938F99;
-      --md-sys-color-shadow: #000000;
-      --md-sys-color-inverse-surface: #E6E1E5;
-      --md-sys-color-inverse-on-surface: #313033;
-      --md-sys-color-inverse-primary: #6750A4;
+      --color-primary: #2563eb;
+      --color-primary-rgb: 37, 99, 235;
+      --color-primary-contrast: #ffffff;
+      --color-background: #f4f5f7;
+      --color-surface: #ffffff;
+      --color-on-surface: #1f2937;
+      --color-on-surface-variant: #6b7280;
+      --color-outline: #d1d5db;
+      --color-outline-focus: #a5b4fc;
+      --color-success: #22c55e;
+      --color-error: #ef4444;
+
+      --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      
+      --border-radius: 12px;
     }
 
     *, *::before, *::after {
@@ -54,32 +46,38 @@
     }
 
     body {
-      font-family: 'Roboto Flex', sans-serif;
-      background-color: var(--md-sys-color-background);
-      color: var(--md-sys-color-on-background);
+      font-family: var(--font-primary);
+      background-color: var(--color-background);
+      color: var(--color-on-surface);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      padding: 24px;
+      padding: 32px;
       display: flex;
       justify-content: center;
       min-height: 100vh;
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.98); }
+        to { opacity: 1; transform: scale(1); }
     }
 
     .wrap {
       width: 100%;
-      max-width: 800px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+      max-width: 840px;
     }
-
+    
     .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px;
-      background-color: var(--md-sys-color-surface-variant);
-      border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 24px;
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-outline);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        margin-bottom: 32px;
     }
 
     .brand {
@@ -89,69 +87,74 @@
     }
 
     .brand .logo {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background-color: var(--md-sys-color-primary);
-      color: var(--md-sys-color-on-primary);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 22px;
     }
     
     .brand .title {
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--md-sys-color-on-surface);
-    }
-
-    .top-right {
-      text-align: right;
-    }
-
-    .top-right .developer {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--md-sys-color-on-surface-variant);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-on-surface);
     }
     
-    .top-right .developer strong {
-        color: var(--md-sys-color-primary);
+    .developer {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--color-on-surface-variant);
     }
+    .developer strong { color: var(--color-primary); }
 
     .panel {
-      background-color: var(--md-sys-color-surface);
-      border: 1px solid var(--md-sys-color-outline);
-      border-radius: 16px;
-      padding: 32px;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-outline);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    
+    .panel-content {
+        padding: 32px 40px;
     }
 
     .section-card {
-      margin-bottom: 32px;
+      padding-bottom: 24px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--color-outline);
+    }
+    .section-card:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
     }
     
     .section-head {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
       margin-bottom: 24px;
     }
 
     .section-head .icon {
         font-size: 24px;
-        color: var(--md-sys-color-primary);
+        color: var(--color-primary);
     }
     
     .section-head h3 {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
     }
 
     .form-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
+      gap: 20px 24px;
     }
     
     .field {
@@ -161,14 +164,12 @@
     label {
       display: block;
       font-size: 14px;
-      font-weight: 500;
-      color: var(--md-sys-color-on-surface-variant);
+      font-weight: 600;
+      color: var(--color-on-surface);
       margin-bottom: 8px;
     }
     
-    .required {
-        color: var(--md-sys-color-error);
-    }
+    .required { color: var(--color-error); }
 
     input[type=text],
     input[type=tel],
@@ -177,39 +178,40 @@
     select,
     textarea {
       width: 100%;
-      padding: 16px;
+      padding: 12px 16px;
       border-radius: 8px;
-      border: 1px solid var(--md-sys-color-outline);
-      background-color: var(--md-sys-color-surface-variant);
-      font-size: 16px;
-      color: var(--md-sys-color-on-surface);
+      border: 1px solid var(--color-outline);
+      background-color: var(--color-background);
+      font-size: 15px;
+      color: var(--color-on-surface);
       font-family: inherit;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: all 0.2s ease-in-out;
+      box-shadow: var(--shadow-sm);
     }
 
     input::placeholder,
     textarea::placeholder {
-      color: var(--md-sys-color-on-surface-variant);
-      opacity: 0.7;
+      color: var(--color-on-surface-variant);
     }
 
     input:focus,
     textarea:focus,
     select:focus {
       outline: none;
-      border-color: var(--md-sys-color-primary);
-      box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
+      border-color: var(--color-primary);
+      background-color: var(--color-surface);
+      box-shadow: 0 0 0 3px var(--color-outline-focus);
     }
 
     textarea {
-      min-height: 120px;
+      min-height: 110px;
       resize: vertical;
     }
 
     .checkbox-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
     }
 
     .cb {
@@ -218,96 +220,110 @@
       gap: 12px;
       padding: 12px;
       border-radius: 8px;
-      border: 1px solid var(--md-sys-color-outline);
+      border: 1px solid var(--color-outline);
+      background-color: var(--color-background);
       cursor: pointer;
-      transition: background-color 0.2s, border-color 0.2s;
+      transition: all 0.2s ease-in-out;
     }
-
+    
     .cb:hover {
-        background-color: var(--md-sys-color-surface-variant);
+        border-color: var(--color-primary);
     }
     
     .cb.checked {
-        background-color: var(--md-sys-color-primary-container);
-        border-color: var(--md-sys-color-primary);
+        background-color: var(--color-surface);
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 2px var(--color-outline-focus);
     }
 
     .cb input {
-      width: 20px;
-      height: 20px;
-      accent-color: var(--md-sys-color-primary);
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-primary);
+      flex-shrink: 0;
     }
     
-    .cb span {
-        font-weight: 500;
+    .cb span { font-weight: 500; }
+    
+    .panel-footer {
+        background-color: var(--color-background);
+        padding: 24px 40px;
+        border-top: 1px solid var(--color-outline);
     }
 
     .submit-row {
       display: flex;
-      flex-direction: column;
       align-items: center;
+      justify-content: space-between;
       gap: 16px;
-      margin-top: 32px;
     }
 
     .submit-btn {
-      width: 100%;
-      padding: 16px;
+      min-width: 200px;
+      padding: 12px 24px;
       border-radius: 8px;
       border: none;
-      background-color: var(--md-sys-color-primary);
-      color: var(--md-sys-color-on-primary);
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.2s;
+      transition: all 0.25s;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      box-shadow: var(--shadow-md);
     }
-
+    
     .submit-btn:hover {
-      background-color: var(--md-sys-color-primary-container);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 10px -2px rgb(0 0 0 / 0.15);
     }
     
     .submit-btn:disabled {
-        background-color: var(--md-sys-color-surface-variant);
-        color: var(--md-sys-color-on-surface-variant);
+        background: var(--color-outline);
+        color: var(--color-on-surface-variant);
         cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
     }
     
     .alert {
-      padding: 16px;
+      padding: 14px 16px;
       border-radius: 8px;
       font-weight: 500;
       display: flex;
       align-items: center;
       gap: 12px;
+      margin-bottom: 24px;
     }
 
     .alert.success {
-      background-color: var(--md-sys-color-tertiary-container);
-      color: var(--md-sys-color-on-tertiary-container);
+      background-color: #ecfdf5; color: #059669; border: 1px solid #6ee7b7;
     }
     
     .alert.error {
-        background-color: var(--md-sys-color-error-container);
-        color: var(--md-sys-color-on-error-container);
-    }
-
-    .muted {
-        color: var(--md-sys-color-on-surface-variant);
-        font-size: 14px;
+        background-color: #fef2f2; color: #dc2626; border: 1px solid #fca5a5;
     }
     
-    @media (max-width: 600px) {
-        body {
-            padding: 16px;
-        }
-        .panel {
-            padding: 16px;
-        }
+    .muted {
+        color: var(--color-on-surface-variant);
+        font-size: 13px;
+    }
+    
+    @media (max-width: 768px) {
+        body { padding: 16px; }
+        .topbar { margin-bottom: 16px; padding: 12px 16px; }
+        .panel-content { padding: 24px; }
+        .panel-footer { padding: 16px 24px; }
+        .submit-row { flex-direction: column-reverse; align-items: stretch; text-align: center; }
+    }
+    @media (max-width: 480px) {
+        body { padding: 0; }
+        .wrap { max-width: 100%; }
+        .topbar { border-radius: 0; margin-bottom: 0; }
+        .panel { border-radius: 0; border-left: none; border-right: none; box-shadow: none; }
     }
   </style>
 </head>
@@ -317,129 +333,128 @@
 
     <header class="topbar" role="banner">
       <div class="brand">
-        <div class="logo" aria-hidden="true">🎨</div>
-        <div>
-          <div class="title">Arts Academy</div>
-        </div>
+        <div class="logo" aria-hidden="true"><span class="material-icons">edit</span></div>
+        <div class="title">Arts Academy</div>
       </div>
-      <div class="top-right">
-        <div class="developer">Developed by <strong>Sayon</strong></div>
-      </div>
+      <div class="developer">by <strong>Sayon</strong></div>
     </header>
 
     <main class="panel" role="main">
-      <form id="registrationForm" autocomplete="off" novalidate>
+      <div class="panel-content">
+        <form id="registrationForm" autocomplete="off" novalidate>
 
-        <section class="section-card" aria-labelledby="basicInfo">
-          <div class="section-head">
-            <span class="material-icons icon">person</span>
-            <h3 id="basicInfo">Basic Information</h3>
-          </div>
-
-          <div class="field">
-            <label for="name">Student Name <span class="required">*</span></label>
-            <input id="name" name="name" type="text" placeholder="Enter student's full name" required>
-          </div>
-
-          <div class="form-grid">
-            <div class="field">
-              <label for="className">Class <span class="required">*</span></label>
-              <select id="className" name="className" required>
-                <option value="">Select Class</option>
-                <option>Class 1</option><option>Class 2</option><option>Class 3</option>
-                <option>Class 4</option><option>Class 5</option><option>Class 6</option>
-                <option>Class 7</option><option>Class 8</option><option>Class 9</option>
-                <option>Class 10</option><option>Class 11</option><option>Class 12</option>
-                <option>B.A Honours</option><option>B.A Pass</option><option>Computer</option>
-              </select>
+          <section class="section-card" aria-labelledby="basicInfo">
+            <div class="section-head">
+              <span class="material-icons-outlined icon">person</span>
+              <h3 id="basicInfo">Basic Information</h3>
             </div>
 
             <div class="field">
-              <label for="school">School Name</label>
-              <input id="school" name="school" type="text" list="schoolList" placeholder="Select or type your school name" autocomplete="off">
-              <datalist id="schoolList">
-                <option value="CMS"><option value="BHARATI"><option value="MUNICIPAL BOYS"><option value="RATHTALA"><option value="BIDYARTHI"><option value="RAMKRISHNA"><option value="RAJ SCHOOL"><option value="WOMEN'S CLG"><option value="HARISAVA">
-              </datalist>
-            </div>
-          </div>
-        </section>
-
-        <section class="section-card" aria-labelledby="academic">
-          <div class="section-head">
-            <span class="material-icons icon">school</span>
-            <h3 id="academic">Academic Details</h3>
-          </div>
-
-          <div class="field">
-            <label>Subjects <span class="required">*</span></label>
-            <div class="checkbox-grid" id="subjectsList">
-              <label class="cb"><input type="checkbox" name="subjects" value="Bengali"><span>Bengali</span></label>
-              <label class="cb"><input type="checkbox" name="subjects" value="History"><span>History</span></label>
-              <label class="cb"><input type="checkbox" name="subjects" value="English"><span>English</span></label>
-              <label class="cb"><input type="checkbox" name="subjects" value="Geography"><span>Geography</span></label>
-              <label class="cb"><input type="checkbox" name="subjects" value="Sanskrit"><span>Sanskrit</span></label>
-              <label class="cb"><input type="checkbox" name="subjects" value="Computer"><span>Computer</span></label>
-            </div>
-          </div>
-
-          <div class="form-grid">
-            <div class="field">
-              <label for="dob">Date of Birth</label>
-              <input id="dob" name="dob" type="date">
-              <div id="ageDisplay" class="muted" style="margin-top: 8px;"></div>
+              <label for="name">Student Name <span class="required">*</span></label>
+              <input id="name" name="name" type="text" placeholder="e.g., John Doe" required>
             </div>
 
-            <div class="field">
-              <label for="admissionDate">Admission Date <span class="required">*</span></label>
-              <input id="admissionDate" name="admissionDate" type="date" required>
+            <div class="form-grid">
+              <div class="field">
+                <label for="className">Class <span class="required">*</span></label>
+                <select id="className" name="className" required>
+                  <option value="">Select a class</option>
+                  <option>Class 1</option><option>Class 2</option><option>Class 3</option>
+                  <option>Class 4</option><option>Class 5</option><option>Class 6</option>
+                  <option>Class 7</option><option>Class 8</option><option>Class 9</option>
+                  <option>Class 10</option><option>Class 11</option><option>Class 12</option>
+                  <option>B.A Honours</option><option>B.A Pass</option><option>Computer</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="school">School Name</label>
+                <input id="school" name="school" type="text" list="schoolList" placeholder="Type or select school" autocomplete="off">
+                <datalist id="schoolList">
+                  <option value="CMS"><option value="BHARATI"><option value="MUNICIPAL BOYS"><option value="RATHTALA"><option value="BIDYARTHI"><option value="RAMKRISHNA"><option value="RAJ SCHOOL"><option value="WOMEN'S CLG"><option value="HARISAVA">
+                </datalist>
+              </div>
             </div>
-          </div>
+          </section>
 
-          <div class="field">
-            <label for="fees">Monthly Fees (₹)</label>
-            <input id="fees" name="fees" type="number" min="0" step="0.01" placeholder="0">
-          </div>
-        </section>
-
-        <section class="section-card" aria-labelledby="contact">
-          <div class="section-head">
-            <span class="material-icons icon">contacts</span>
-            <h3 id="contact">Contact Information</h3>
-          </div>
-
-          <div class="form-grid">
-            <div class="field">
-              <label for="guardianName">Guardian Name</label>
-              <input id="guardianName" name="guardianName" type="text" placeholder="Parent/Guardian name">
+          <section class="section-card" aria-labelledby="academic">
+            <div class="section-head">
+              <span class="material-icons-outlined icon">school</span>
+              <h3 id="academic">Academic Details</h3>
             </div>
 
             <div class="field">
-              <label for="guardianPhone">Guardian Phone <span class="required">*</span></label>
-              <input id="guardianPhone" name="guardianPhone" type="number" inputmode="numeric" placeholder="10-digit number" required>
+              <label>Subjects <span class="required">*</span></label>
+              <div class="checkbox-grid" id="subjectsList">
+                <label class="cb"><input type="checkbox" name="subjects" value="Bengali"><span>Bengali</span></label>
+                <label class="cb"><input type="checkbox" name="subjects" value="History"><span>History</span></label>
+                <label class="cb"><input type="checkbox" name="subjects" value="English"><span>English</span></label>
+                <label class="cb"><input type="checkbox" name="subjects" value="Geography"><span>Geography</span></label>
+                <label class="cb"><input type="checkbox" name="subjects" value="Sanskrit"><span>Sanskrit</span></label>
+                <label class="cb"><input type="checkbox" name="subjects" value="Computer"><span>Computer</span></label>
+              </div>
             </div>
-          </div>
 
-          <div class="field">
-            <label for="studentPhone">Student Phone</label>
-            <input id="studentPhone" name="studentPhone" type="number" inputmode="numeric" placeholder="Optional (10 digits)">
-          </div>
+            <div class="form-grid">
+              <div class="field">
+                <label for="dob">Date of Birth</label>
+                <input id="dob" name="dob" type="date">
+                <div id="ageDisplay" class="muted" style="text-align: right; margin-top: 8px; font-size: 12px;"></div>
+              </div>
 
-          <div class="field">
-            <label for="address">Address</label>
-            <textarea id="address" name="address" placeholder="Enter complete residential address"></textarea>
-          </div>
-        </section>
+              <div class="field">
+                <label for="admissionDate">Admission Date <span class="required">*</span></label>
+                <input id="admissionDate" name="admissionDate" type="date" required>
+              </div>
+            </div>
 
-        <div id="alertBox" style="display:none; margin-bottom: 24px;" role="status" aria-live="polite"></div>
+            <div class="field">
+              <label for="fees">Monthly Fees (₹)</label>
+              <input id="fees" name="fees" type="number" min="0" placeholder="e.g., 500">
+            </div>
+          </section>
 
+          <section class="section-card" aria-labelledby="contact">
+            <div class="section-head">
+              <span class="material-icons-outlined icon">contact_phone</span>
+              <h3 id="contact">Contact Information</h3>
+            </div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="guardianName">Guardian Name</label>
+                <input id="guardianName" name="guardianName" type="text" placeholder="Parent/Guardian's name">
+              </div>
+
+              <div class="field">
+                <label for="guardianPhone">Guardian Phone <span class="required">*</span></label>
+                <input id="guardianPhone" name="guardianPhone" type="number" inputmode="numeric" placeholder="10-digit mobile number" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="studentPhone">Student Phone</label>
+              <input id="studentPhone" name="studentPhone" type="number" inputmode="numeric" placeholder="Optional, 10-digit mobile">
+            </div>
+
+            <div class="field">
+              <label for="address">Address</label>
+              <textarea id="address" name="address" placeholder="Enter complete residential address"></textarea>
+            </div>
+          </section>
+          
+          <div id="alertBox" style="display:none;" role="status" aria-live="polite"></div>
+
+        </form>
+      </div>
+      <div class="panel-footer">
         <div class="submit-row">
-          <button type="submit" id="submitBtn" class="submit-btn">
-            <span class="material-icons">send</span> Submit Admission Request
-          </button>
-          <div class="muted">We will review and contact within 48 hours</div>
+            <div class="muted">We'll review your application and contact you soon.</div>
+            <button type="submit" id="submitBtn" class="submit-btn" form="registrationForm">
+                <span class="material-icons">send</span> Submit Request
+            </button>
         </div>
-
-      </form>
+      </div>
     </main>
   </div>
 
@@ -453,10 +468,12 @@
     document.querySelectorAll('.cb').forEach(label => {
       const input = label.querySelector('input[type="checkbox"]');
       if (input.checked) label.classList.add('checked');
-      label.addEventListener('click', () => {
-        setTimeout(() => {
-          label.classList.toggle('checked', input.checked);
-        }, 0);
+      label.addEventListener('click', (e) => {
+        // We only want to toggle if the click is on the label, not the input itself
+        if (e.target.tagName !== 'INPUT') {
+          input.checked = !input.checked;
+        }
+        label.classList.toggle('checked', input.checked);
       });
     });
 
@@ -464,11 +481,13 @@
       const icon = type === 'success' ? 'check_circle' : 'error';
       alertBox.innerHTML = `<div class="alert ${type}"><span class="material-icons">${icon}</span> ${message}</div>`;
       alertBox.style.display = 'block';
+      alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
       clearTimeout(showAlert._t);
       showAlert._t = setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
     }
     
     function calculateAge(dobString) {
+        if (!dobString) return null;
         const dob = new Date(dobString);
         const today = new Date();
         let age = today.getFullYear() - dob.getFullYear();
@@ -476,30 +495,49 @@
         if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
             age--;
         }
-        return age;
+        return age >= 0 ? age : null;
     }
 
-    dobInput.addEventListener('change', () => {
-        if (dobInput.value) {
-            const age = calculateAge(dobInput.value);
-            ageDisplay.textContent = `Age: ${age} years`;
-        } else {
-            ageDisplay.textContent = '';
-        }
+    dobInput.addEventListener('input', () => {
+        const age = calculateAge(dobInput.value);
+        ageDisplay.textContent = age !== null ? `Age: ${age} years` : '';
     });
+
+    document.getElementById('admissionDate').valueAsDate = new Date();
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      
+      form.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+      let firstInvalidField = null;
 
-      const subjects = Array.from(document.querySelectorAll('input[name="subjects"]:checked')).map(cb => cb.value.toUpperCase());
+      const requiredFields = form.querySelectorAll('[required]');
+      requiredFields.forEach(field => {
+        if ((field.type === 'checkbox' && !form.querySelector(`[name="${field.name}"]:checked`)) || !field.value.trim()) {
+            const fieldElement = field.type === 'select-one' ? field : field.closest('.field') || field;
+            fieldElement.classList.add('invalid');
+            if(!firstInvalidField) firstInvalidField = field;
+        }
+      });
+      
+      const subjects = Array.from(document.querySelectorAll('input[name="subjects"]:checked'));
       if (subjects.length === 0) {
-        showAlert('Please select at least one subject', 'error');
-        return;
+        const subjectContainer = document.getElementById('subjectsList');
+        subjectContainer.classList.add('invalid');
+        showAlert('Please select at least one subject.', 'error');
+        if(!firstInvalidField) firstInvalidField = subjectContainer.querySelector('input');
       }
-
-      const guardianPhone = document.getElementById('guardianPhone').value.trim();
-      if (!/^\d{10}$/.test(guardianPhone)) {
-        showAlert('Enter a valid 10-digit guardian phone number', 'error');
+      
+      const guardianPhone = document.getElementById('guardianPhone');
+      if (!/^\d{10}$/.test(guardianPhone.value.trim())) {
+        guardianPhone.classList.add('invalid');
+        if(!firstInvalidField) firstInvalidField = guardianPhone;
+      }
+      
+      if (firstInvalidField) {
+        firstInvalidField.focus({ preventScroll: true });
+        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        showAlert('Please fill out all required fields correctly.', 'error');
         return;
       }
 
@@ -507,11 +545,11 @@
         name: document.getElementById('name').value.trim(),
         className: document.getElementById('className').value,
         school: document.getElementById('school').value.trim(),
-        subjects,
-        dob: document.getElementById('dob').value ? new Date(document.getElementById('dob').value).getTime() : '',
-        admissionDate: document.getElementById('admissionDate').value ? new Date(document.getElementById('admissionDate').value).getTime() : new Date().getTime(),
+        subjects: subjects.map(cb => cb.value.toUpperCase()),
+        dob: document.getElementById('dob').value ? new Date(document.getElementById('dob').value).getTime() : null,
+        admissionDate: new Date(document.getElementById('admissionDate').value).getTime(),
         guardianName: document.getElementById('guardianName').value.trim(),
-        guardianPhone,
+        guardianPhone: guardianPhone.value.trim(),
         studentPhone: document.getElementById('studentPhone').value.trim(),
         address: document.getElementById('address').value.trim(),
         fees: parseFloat(document.getElementById('fees').value) || 0
@@ -526,25 +564,34 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
         });
+        const result = await res.json().catch(() => ({ success: false, error: 'Invalid server response.' }));
 
-        const result = await res.json().catch(() => ({ success: false, error: 'Invalid server response' }));
-
-        if (result && result.success) {
-          showAlert('Application submitted successfully! We will review your request soon.', 'success');
+        if (res.ok && result.success) {
+          showAlert('Application submitted successfully! We will contact you soon.', 'success');
           form.reset();
           document.querySelectorAll('.cb').forEach(l => l.classList.remove('checked'));
           ageDisplay.textContent = '';
+          document.getElementById('admissionDate').valueAsDate = new Date();
         } else {
-          showAlert('Error: ' + (result.error || 'Failed to submit application'), 'error');
+          showAlert(`Error: ${result.error || 'Failed to submit application.'}`, 'error');
         }
 
       } catch (err) {
-        showAlert('Network error: ' + err.message, 'error');
+        showAlert('Network Error: Could not connect to the server. Please try again later.', 'error');
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span class="material-icons">send</span> Submit Admission Request';
+        submitBtn.innerHTML = '<span class="material-icons">send</span> Submit Request';
       }
     });
+    
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .invalid { border-color: var(--color-error) !important; }
+        .invalid:focus { box-shadow: 0 0 0 3px var(--color-error) !important; }
+        .checkbox-grid.invalid { border: 1px solid var(--color-error); border-radius: 8px; padding: 8px; }
+    `;
+    document.head.appendChild(style);
+
   </script>
 </body>
 </html>

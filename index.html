@@ -12,10 +12,11 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
 
   <style>
-    /* ===== Classic Modern Theme ===== */
+    /* ===== Classic Modern Theme v2.8 (Checkbox Overflow Fix) ===== */
     :root {
       --color-primary: #2563eb;
       --color-primary-rgb: 37, 99, 235;
+      --color-primary-light: #eff6ff;
       --color-primary-contrast: #ffffff;
       --color-background: #f4f5f7;
       --color-surface: #ffffff;
@@ -33,6 +34,7 @@
       --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
       
       --border-radius: 12px;
+      --transition-ease: all 0.2s ease-in-out;
     }
 
     *, *::before, *::after {
@@ -62,22 +64,48 @@
         from { opacity: 0; transform: scale(0.98); }
         to { opacity: 1; transform: scale(1); }
     }
+    
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 5px rgba(37, 99, 235, 0.1); }
+      50% { box-shadow: 0 0 15px rgba(37, 99, 235, 0.3); }
+    }
+    
+    @keyframes checkmark {
+      0% { transform: scale(0.5) rotate(-45deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+    
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .wrap {
       width: 100%;
-      max-width: 840px;
+      max-width: 720px; /* Adjusted max-width for single column */
     }
     
     .topbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 16px 24px;
-        background-color: var(--color-surface);
+        padding: 18px 28px;
+        background: linear-gradient(135deg, var(--color-surface) 0%, #f8f9fa 100%);
         border: 1px solid var(--color-outline);
         border-radius: var(--border-radius);
-        box-shadow: var(--shadow-md);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         margin-bottom: 32px;
+        animation: slideDown 0.5s ease-out;
     }
 
     .brand {
@@ -87,21 +115,28 @@
     }
 
     .brand .logo {
-      width: 44px;
-      height: 44px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      background: var(--color-primary);
+      background: linear-gradient(135deg, var(--color-primary) 0%, #1d47b5 100%);
       color: var(--color-primary-contrast);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+      animation: slideDown 0.5s ease-out;
+      transition: all 0.3s ease;
+    }
+    
+    .brand .logo:hover {
+        transform: scale(1.1) rotate(10deg);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
     }
     
     .brand .title {
       font-size: 20px;
       font-weight: 700;
-      color: var(--color-on-surface);
     }
     
     .developer {
@@ -112,11 +147,12 @@
     .developer strong { color: var(--color-primary); }
 
     .panel {
-      background-color: var(--color-surface);
+      background: linear-gradient(135deg, var(--color-surface) 0%, #f8f9fa 100%);
       border: 1px solid var(--color-outline);
       border-radius: var(--border-radius);
-      box-shadow: var(--shadow-lg);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
       overflow: hidden;
+      animation: slideInUp 0.6s ease-out;
     }
     
     .panel-content {
@@ -124,8 +160,8 @@
     }
 
     .section-card {
-      padding-bottom: 24px;
-      margin-bottom: 24px;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
       border-bottom: 1px solid var(--color-outline);
     }
     .section-card:last-child {
@@ -138,44 +174,88 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--color-outline);
+      animation: slideDown 0.5s ease-out;
     }
 
     .section-head .icon {
-        font-size: 24px;
+        font-size: 28px;
         color: var(--color-primary);
+        animation: slideDown 0.5s ease-out 0.1s backwards;
+        transition: all 0.3s ease;
+    }
+    
+    .section-head:hover .icon {
+        transform: scale(1.1) rotate(-10deg);
+        color: #1d47b5;
     }
     
     .section-head h3 {
       font-size: 18px;
       font-weight: 600;
+      color: var(--color-on-surface);
+      transition: all 0.3s ease;
     }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px 24px;
+    
+    .section-head:hover h3 {
+        color: var(--color-primary);
     }
     
     .field {
-        margin-bottom: 16px;
+        position: relative;
+        margin-bottom: 24px;
+    }
+    .section-card .field:last-child {
+        margin-bottom: 0;
     }
 
-    label {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--color-on-surface);
-      margin-bottom: 8px;
+    .field .icon {
+        position: absolute;
+        left: 16px;
+        top: 13px;
+        font-size: 20px;
+        color: var(--color-on-surface-variant);
+        transition: var(--transition-ease);
+        animation: slideDown 0.4s ease-out;
+    }
+    
+    .field:focus-within .icon {
+        color: var(--color-primary);
+        transform: scale(1.15) rotate(5deg);
+    }
+    
+    .field label {
+      position: absolute;
+      left: 48px;
+      top: 13px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-on-surface-variant);
+      pointer-events: none;
+      transition: var(--transition-ease);
+    }
+    
+    .field label.static-label {
+        position: static;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-on-surface);
+        margin-bottom: 16px;
+        display: block;
     }
     
     .required { color: var(--color-error); }
+    
+    .has-icon {
+        padding-left: 48px !important;
+    }
 
     input[type=text],
     input[type=tel],
     input[type=date],
     input[type=number],
-    select,
     textarea {
       width: 100%;
       padding: 12px 16px;
@@ -185,13 +265,72 @@
       font-size: 15px;
       color: var(--color-on-surface);
       font-family: inherit;
-      transition: all 0.2s ease-in-out;
+      transition: var(--transition-ease);
       box-shadow: var(--shadow-sm);
     }
+    
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--color-outline);
+      background-color: var(--color-background);
+      font-size: 15px;
+      color: var(--color-on-surface);
+      font-family: inherit;
+      transition: var(--transition-ease);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    select {
+        padding-right: 40px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 20px;
+        -webkit-appearance: none;
+        appearance: none;
+        cursor: pointer;
+        font-weight: 500;
+    }
+    
+    select:hover {
+        border-color: var(--color-primary);
+        background-color: var(--color-primary-light);
+    }
+    
+    select option {
+        padding: 12px 16px;
+        margin: 4px 0;
+        background: var(--color-surface);
+        color: var(--color-on-surface);
+        border-radius: 6px;
+        font-weight: 500;
+    }
+    
+    select option:checked {
+        background: linear-gradient(135deg, var(--color-primary) 0%, #1d47b5 100%);
+        color: white;
+        font-weight: 600;
+    }
+    
+    select option:hover {
+        background-color: var(--color-primary-light);
+    }
 
-    input::placeholder,
-    textarea::placeholder {
-      color: var(--color-on-surface-variant);
+    input:not(:placeholder-shown) + label:not(.static-label),
+    select:not([value=""]) + label:not(.static-label),
+    .field:focus-within label:not(.static-label) {
+        transform: translateY(-24px) translateX(-48px);
+        font-size: 12px;
+        color: var(--color-primary);
+        font-weight: 600;
+        background-color: var(--color-surface);
+        padding: 0 4px;
+    }
+    
+    .field:focus-within .icon {
+        color: var(--color-primary);
     }
 
     input:focus,
@@ -203,17 +342,94 @@
       box-shadow: 0 0 0 3px var(--color-outline-focus);
     }
 
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
     .checkbox-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--color-outline);
+      margin-bottom: 8px;
+    }
+    
+    #subjectsField .static-label {
+        margin-bottom: 20px;
     }
 
+    .cb-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 2px solid var(--color-outline);
+      background-color: var(--color-surface);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      min-height: 56px;
+      animation: slideInUp 0.4s ease-out;
+      user-select: none;
+    }
+    
+    .cb-wrapper input[type="checkbox"] {
+      cursor: pointer;
+    }
+    
+    .cb-wrapper .cb-label {
+      cursor: pointer;
+      pointer-events: none;
+    }
+    
+    .cb-wrapper:hover {
+        border-color: var(--color-primary);
+        background: linear-gradient(135deg, var(--color-primary-light) 0%, #f0f8ff 100%);
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.25);
+    }
+    
+    .cb-wrapper:active {
+        transform: translateY(-1px) scale(0.98);
+    }
+    
+    .cb-wrapper input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--color-primary);
+      flex-shrink: 0;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      animation: slideInUp 0.5s ease-out 0.1s backwards;
+    }
+    
+    .cb-wrapper input[type="checkbox"]:checked {
+        accent-color: var(--color-primary);
+        animation: checkmark 0.3s ease-out;
+    }
+    
+    .cb-wrapper input[type="checkbox"]:hover {
+        transform: scale(1.15);
+    }
+    
+    .cb-wrapper .cb-label {
+      margin: 0;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--color-on-surface);
+      transition: var(--transition-ease);
+      user-select: none;
+      font-size: 15px;
+      display: inline;
+      flex: 1;
+    }
+    
+    .cb-wrapper:has(input:checked) .cb-label {
+        color: var(--color-primary);
+        font-weight: 700;
+    }
+    
     .cb {
       display: flex;
       align-items: center;
@@ -221,19 +437,20 @@
       padding: 12px;
       border-radius: 8px;
       border: 1px solid var(--color-outline);
-      background-color: var(--color-background);
+      background-color: var(--color-surface);
       cursor: pointer;
-      transition: all 0.2s ease-in-out;
+      transition: var(--transition-ease);
+      width: 100%;
     }
     
     .cb:hover {
         border-color: var(--color-primary);
+        background-color: var(--color-primary-light);
     }
     
     .cb.checked {
-        background-color: var(--color-surface);
         border-color: var(--color-primary);
-        box-shadow: 0 0 0 2px var(--color-outline-focus);
+        background-color: var(--color-primary-light);
     }
 
     .cb input {
@@ -246,7 +463,7 @@
     .cb span { font-weight: 500; }
     
     .panel-footer {
-        background-color: var(--color-background);
+        background-color: #fcfcfd;
         padding: 24px 40px;
         border-top: 1px solid var(--color-outline);
     }
@@ -260,51 +477,96 @@
 
     .submit-btn {
       min-width: 200px;
-      padding: 12px 24px;
-      border-radius: 8px;
+      padding: 14px 32px;
+      border-radius: 10px;
       border: none;
-      background: var(--color-primary);
+      background: linear-gradient(135deg, var(--color-primary) 0%, #1d47b5 100%);
       color: var(--color-primary-contrast);
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.25s;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+      position: relative;
+      overflow: hidden;
+      animation: slideInUp 0.6s ease-out 0.3s backwards;
     }
     
-    .submit-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 10px -2px rgb(0 0 0 / 0.15);
+    .submit-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+    
+    .submit-btn:hover:not(:disabled)::before {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .submit-btn:hover:not(:disabled) {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+    }
+    
+    .submit-btn:active:not(:disabled) {
+        transform: translateY(-2px) scale(0.98);
     }
     
     .submit-btn:disabled {
-        background: var(--color-outline);
+        background: linear-gradient(135deg, var(--color-outline) 0%, #ccc 100%);
         color: var(--color-on-surface-variant);
         cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
+        opacity: 0.6;
     }
     
+    .submit-btn .spinner {
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
     .alert {
-      padding: 14px 16px;
-      border-radius: 8px;
+      padding: 16px 20px;
+      border-radius: 10px;
       font-weight: 500;
       display: flex;
       align-items: center;
       gap: 12px;
       margin-bottom: 24px;
-    }
-
-    .alert.success {
-      background-color: #ecfdf5; color: #059669; border: 1px solid #6ee7b7;
+      animation: slideDown 0.4s ease-out;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid;
     }
     
-    .alert.error {
-        background-color: #fef2f2; color: #dc2626; border: 1px solid #fca5a5;
+    .alert .material-icons {
+        animation: checkmark 0.5s ease-out;
+        font-size: 24px;
+    }
+
+    .alert.success { 
+        background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+        color: #059669;
+        border-left-color: #10b981;
+    }
+    .alert.error { 
+        background: linear-gradient(135deg, #fef2f2 0%, #fef5f5 100%);
+        color: #dc2626;
+        border-left-color: #ef4444;
     }
     
     .muted {
@@ -318,12 +580,17 @@
         .panel-content { padding: 24px; }
         .panel-footer { padding: 16px 24px; }
         .submit-row { flex-direction: column-reverse; align-items: stretch; text-align: center; }
+        .checkbox-grid { grid-template-columns: repeat(2, 1fr); padding: 16px; gap: 12px; }
+        .cb-wrapper { padding: 12px 14px; min-height: 52px; }
     }
     @media (max-width: 480px) {
         body { padding: 0; }
         .wrap { max-width: 100%; }
         .topbar { border-radius: 0; margin-bottom: 0; }
         .panel { border-radius: 0; border-left: none; border-right: none; box-shadow: none; }
+        .checkbox-grid { grid-template-columns: 1fr; padding: 12px; gap: 10px; }
+        .cb-wrapper { padding: 12px 14px; min-height: 48px; }
+        .cb-label { font-size: 14px; }
     }
   </style>
 </head>
@@ -333,7 +600,7 @@
 
     <header class="topbar" role="banner">
       <div class="brand">
-        <div class="logo" aria-hidden="true"><span class="material-icons">edit</span></div>
+        <div class="logo" aria-hidden="true"><span class="material-icons">edit_note</span></div>
         <div class="title">Arts Academy</div>
       </div>
       <div class="developer">by <strong>Sayon</strong></div>
@@ -345,100 +612,121 @@
 
           <section class="section-card" aria-labelledby="basicInfo">
             <div class="section-head">
-              <span class="material-icons-outlined icon">person</span>
+              <span class="material-icons-outlined icon">account_circle</span>
               <h3 id="basicInfo">Basic Information</h3>
+            </div>
+            
+            <div class="field">
+              <span class="material-icons-outlined icon">person</span>
+              <input id="name" name="name" type="text" placeholder=" " class="has-icon" required>
+              <label for="name">Student Name <span class="required">*</span></label>
             </div>
 
             <div class="field">
-              <label for="name">Student Name <span class="required">*</span></label>
-              <input id="name" name="name" type="text" placeholder="e.g., John Doe" required>
+              <span class="material-icons-outlined icon">school</span>
+              <select id="className" name="className" class="has-icon" required>
+                <option value="" disabled selected hidden></option>
+                <option>Class 1</option><option>Class 2</option><option>Class 3</option>
+                <option>Class 4</option><option>Class 5</option><option>Class 6</option>
+                <option>Class 7</option><option>Class 8</option><option>Class 9</option>
+                <option>Class 10</option><option>Class 11</option><option>Class 12</option>
+                <option>B.A Honours</option><option>B.A Pass</option><option>Computer</option>
+              </select>
+              <label for="className">Class <span class="required">*</span></label>
             </div>
 
-            <div class="form-grid">
-              <div class="field">
-                <label for="className">Class <span class="required">*</span></label>
-                <select id="className" name="className" required>
-                  <option value="">Select a class</option>
-                  <option>Class 1</option><option>Class 2</option><option>Class 3</option>
-                  <option>Class 4</option><option>Class 5</option><option>Class 6</option>
-                  <option>Class 7</option><option>Class 8</option><option>Class 9</option>
-                  <option>Class 10</option><option>Class 11</option><option>Class 12</option>
-                  <option>B.A Honours</option><option>B.A Pass</option><option>Computer</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="school">School Name</label>
-                <input id="school" name="school" type="text" list="schoolList" placeholder="Type or select school" autocomplete="off">
-                <datalist id="schoolList">
-                  <option value="CMS"><option value="BHARATI"><option value="MUNICIPAL BOYS"><option value="RATHTALA"><option value="BIDYARTHI"><option value="RAMKRISHNA"><option value="RAJ SCHOOL"><option value="WOMEN'S CLG"><option value="HARISAVA">
-                </datalist>
-              </div>
+            <div class="field">
+              <span class="material-icons-outlined icon">apartment</span>
+              <input id="school" name="school" type="text" list="schoolList" placeholder=" " class="has-icon" autocomplete="off">
+              <label for="school">School Name</label>
+              <datalist id="schoolList">
+                <option value="CMS"><option value="BHARATI"><option value="MUNICIPAL BOYS"><option value="RATHTALA"><option value="BIDYARTHI"><option value="RAMKRISHNA"><option value="RAJ SCHOOL"><option value="WOMEN'S CLG"><option value="HARISAVA">
+              </datalist>
             </div>
           </section>
 
           <section class="section-card" aria-labelledby="academic">
             <div class="section-head">
-              <span class="material-icons-outlined icon">school</span>
+              <span class="material-icons-outlined icon">history_edu</span>
               <h3 id="academic">Academic Details</h3>
             </div>
-
-            <div class="field">
-              <label>Subjects <span class="required">*</span></label>
-              <div class="checkbox-grid" id="subjectsList">
-                <label class="cb"><input type="checkbox" name="subjects" value="Bengali"><span>Bengali</span></label>
-                <label class="cb"><input type="checkbox" name="subjects" value="History"><span>History</span></label>
-                <label class="cb"><input type="checkbox" name="subjects" value="English"><span>English</span></label>
-                <label class="cb"><input type="checkbox" name="subjects" value="Geography"><span>Geography</span></label>
-                <label class="cb"><input type="checkbox" name="subjects" value="Sanskrit"><span>Sanskrit</span></label>
-                <label class="cb"><input type="checkbox" name="subjects" value="Computer"><span>Computer</span></label>
-              </div>
+            
+            <div class="field" id="subjectsField">
+                <label class="static-label">Subjects <span class="required">*</span></label>
+                <div class="checkbox-grid" id="subjectsListContainer">
+                    <div class="cb-wrapper">
+                        <input type="checkbox" id="subj-bengali" name="subjects" value="Bengali">
+                        <label for="subj-bengali" class="cb-label">Bengali</label>
+                    </div>
+                    <div class="cb-wrapper">
+                        <input type="checkbox" id="subj-history" name="subjects" value="History">
+                        <label for="subj-history" class="cb-label">History</label>
+                    </div>
+                    <div class="cb-wrapper">
+                        <input type="checkbox" id="subj-english" name="subjects" value="English">
+                        <label for="subj-english" class="cb-label">English</label>
+                    </div>
+                    <div class="cb-wrapper">
+                        <input type="checkbox" id="subj-geography" name="subjects" value="Geography">
+                        <label for="subj-geography" class="cb-label">Geography</label>
+                    </div>
+                    <div class="cb-wrapper">
+                        <input type="checkbox" id="subj-sanskrit" name="subjects" value="Sanskrit">
+                        <label for="subj-sanskrit" class="cb-label">Sanskrit</label>
+                    </div>
+                    <div class="cb-wrapper">
+                        <input type="checkbox" id="subj-computer" name="subjects" value="Computer">
+                        <label for="subj-computer" class="cb-label">Computer</label>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-grid">
-              <div class="field">
-                <label for="dob">Date of Birth</label>
-                <input id="dob" name="dob" type="date">
-                <div id="ageDisplay" class="muted" style="text-align: right; margin-top: 8px; font-size: 12px;"></div>
-              </div>
-
-              <div class="field">
-                <label for="admissionDate">Admission Date <span class="required">*</span></label>
-                <input id="admissionDate" name="admissionDate" type="date" required>
-              </div>
+            <div class="field">
+              <span class="material-icons-outlined icon">cake</span>
+              <input id="dob" name="dob" type="date" placeholder=" " class="has-icon">
+              <label for="dob">Date of Birth</label>
+              <div id="ageDisplay" class="muted" style="text-align: right; margin-top: 8px; font-size: 12px;"></div>
             </div>
 
             <div class="field">
+              <span class="material-icons-outlined icon">event</span>
+              <input id="admissionDate" name="admissionDate" type="date" placeholder=" " class="has-icon" required>
+              <label for="admissionDate">Admission Date <span class="required">*</span></label>
+            </div>
+
+            <div class="field">
+              <span class="material-icons-outlined icon">request_quote</span>
+              <input id="fees" name="fees" type="number" min="0" placeholder=" " class="has-icon">
               <label for="fees">Monthly Fees (₹)</label>
-              <input id="fees" name="fees" type="number" min="0" placeholder="e.g., 500">
             </div>
           </section>
 
           <section class="section-card" aria-labelledby="contact">
             <div class="section-head">
-              <span class="material-icons-outlined icon">contact_phone</span>
+              <span class="material-icons-outlined icon">contacts</span>
               <h3 id="contact">Contact Information</h3>
             </div>
 
-            <div class="form-grid">
-              <div class="field">
-                <label for="guardianName">Guardian Name</label>
-                <input id="guardianName" name="guardianName" type="text" placeholder="Parent/Guardian's name">
-              </div>
-
-              <div class="field">
-                <label for="guardianPhone">Guardian Phone <span class="required">*</span></label>
-                <input id="guardianPhone" name="guardianPhone" type="number" inputmode="numeric" placeholder="10-digit mobile number" required>
-              </div>
+            <div class="field">
+              <span class="material-icons-outlined icon">supervisor_account</span>
+              <input id="guardianName" name="guardianName" type="text" placeholder=" " class="has-icon">
+              <label for="guardianName">Guardian Name</label>
             </div>
 
             <div class="field">
+              <span class="material-icons-outlined icon">phone</span>
+              <input id="guardianPhone" name="guardianPhone" type="tel" inputmode="numeric" placeholder=" " class="has-icon" required>
+              <label for="guardianPhone">Guardian Phone <span class="required">*</span></label>
+            </div>
+
+            <div class="field">
+              <span class="material-icons-outlined icon">smartphone</span>
+              <input id="studentPhone" name="studentPhone" type="tel" inputmode="numeric" placeholder=" " class="has-icon">
               <label for="studentPhone">Student Phone</label>
-              <input id="studentPhone" name="studentPhone" type="number" inputmode="numeric" placeholder="Optional, 10-digit mobile">
             </div>
 
             <div class="field">
-              <label for="address">Address</label>
+              <label for="address" class="static-label">Address</label>
               <textarea id="address" name="address" placeholder="Enter complete residential address"></textarea>
             </div>
           </section>
@@ -451,7 +739,8 @@
         <div class="submit-row">
             <div class="muted">We'll review your application and contact you soon.</div>
             <button type="submit" id="submitBtn" class="submit-btn" form="registrationForm">
-                <span class="material-icons">send</span> Submit Request
+                <span id="submit-icon" class="material-icons">send</span>
+                <span id="submit-text">Submit Request</span>
             </button>
         </div>
       </div>
@@ -464,18 +753,10 @@
     const submitBtn = document.getElementById('submitBtn');
     const dobInput = document.getElementById('dob');
     const ageDisplay = document.getElementById('ageDisplay');
+    const subjectsListContainer = document.getElementById('subjectsListContainer');
 
-    document.querySelectorAll('.cb').forEach(label => {
-      const input = label.querySelector('input[type="checkbox"]');
-      if (input.checked) label.classList.add('checked');
-      label.addEventListener('click', (e) => {
-        // We only want to toggle if the click is on the label, not the input itself
-        if (e.target.tagName !== 'INPUT') {
-          input.checked = !input.checked;
-        }
-        label.classList.toggle('checked', input.checked);
-      });
-    });
+
+
 
     function showAlert(message, type = 'success') {
       const icon = type === 'success' ? 'check_circle' : 'error';
@@ -504,6 +785,35 @@
     });
 
     document.getElementById('admissionDate').valueAsDate = new Date();
+    
+    // Trigger floating label check on page load for autofilled fields
+    document.addEventListener('DOMContentLoaded', () => {
+        // Make entire checkbox wrapper clickable
+        subjectsListContainer.querySelectorAll('.cb-wrapper').forEach(wrapper => {
+            wrapper.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'INPUT') {
+                    const checkbox = wrapper.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                    checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+            });
+        });
+        
+        form.querySelectorAll('input, select').forEach(el => {
+            if (el.value && el.value !== "") {
+                const label = form.querySelector(`label[for="${el.id}"]`);
+                if (label && !label.classList.contains('static-label')) {
+                    label.style.transform = 'translateY(-24px) translateX(-48px)';
+                    label.style.fontSize = '12px';
+                    label.style.color = 'var(--color-primary)';
+                    label.style.fontWeight = '600';
+                    label.style.backgroundColor = 'var(--color-surface)';
+                    label.style.padding = '0 4px';
+                }
+            }
+        });
+    });
+
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -513,24 +823,30 @@
 
       const requiredFields = form.querySelectorAll('[required]');
       requiredFields.forEach(field => {
-        if ((field.type === 'checkbox' && !form.querySelector(`[name="${field.name}"]:checked`)) || !field.value.trim()) {
-            const fieldElement = field.type === 'select-one' ? field : field.closest('.field') || field;
-            fieldElement.classList.add('invalid');
+        let isInvalid = false;
+        if (field.type === 'select-one' && field.value === "") {
+            isInvalid = true;
+        } else if (field.type !== 'select-one' && !field.value.trim()) {
+            isInvalid = true;
+        }
+        
+        if(isInvalid) {
+            const fieldWrapper = field.closest('.field');
+            if (fieldWrapper) fieldWrapper.classList.add('invalid');
+            else field.classList.add('invalid');
             if(!firstInvalidField) firstInvalidField = field;
         }
       });
       
-      const subjects = Array.from(document.querySelectorAll('input[name="subjects"]:checked'));
+      const subjects = Array.from(subjectsListContainer.querySelectorAll('input[name="subjects"]:checked'));
       if (subjects.length === 0) {
-        const subjectContainer = document.getElementById('subjectsList');
-        subjectContainer.classList.add('invalid');
-        showAlert('Please select at least one subject.', 'error');
-        if(!firstInvalidField) firstInvalidField = subjectContainer.querySelector('input');
+        subjectsListContainer.closest('.field').classList.add('invalid');
+        if(!firstInvalidField) firstInvalidField = subjectsListContainer.querySelector('input');
       }
       
       const guardianPhone = document.getElementById('guardianPhone');
       if (!/^\d{10}$/.test(guardianPhone.value.trim())) {
-        guardianPhone.classList.add('invalid');
+        guardianPhone.closest('.field').classList.add('invalid');
         if(!firstInvalidField) firstInvalidField = guardianPhone;
       }
       
@@ -556,7 +872,11 @@
       };
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="material-icons">hourglass_top</span> Submitting...';
+      const submitIcon = document.getElementById('submit-icon');
+      const submitText = document.getElementById('submit-text');
+      submitIcon.style.display = 'none';
+      submitText.innerHTML = '<div class="spinner"></div>';
+
 
       try {
         const res = await fetch('https://arts-academy.onrender.com/api/admissions', {
@@ -569,9 +889,20 @@
         if (res.ok && result.success) {
           showAlert('Application submitted successfully! We will contact you soon.', 'success');
           form.reset();
-          document.querySelectorAll('.cb').forEach(l => l.classList.remove('checked'));
           ageDisplay.textContent = '';
           document.getElementById('admissionDate').valueAsDate = new Date();
+          // Manually reset floating labels by removing placeholder-shown state
+          form.querySelectorAll('input:not([type="date"]), select').forEach(el => {
+            const label = form.querySelector(`label[for="${el.id}"]`);
+            if (label && !label.classList.contains('static-label')) {
+              label.style.transform = '';
+              label.style.fontSize = '';
+              label.style.color = '';
+              label.style.fontWeight = '';
+              label.style.backgroundColor = '';
+              label.style.padding = '';
+            }
+          });
         } else {
           showAlert(`Error: ${result.error || 'Failed to submit application.'}`, 'error');
         }
@@ -580,15 +911,27 @@
         showAlert('Network Error: Could not connect to the server. Please try again later.', 'error');
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span class="material-icons">send</span> Submit Request';
+        submitIcon.style.display = 'inline-block';
+        submitText.textContent = 'Submit Request';
       }
     });
     
     const style = document.createElement('style');
     style.innerHTML = `
-        .invalid { border-color: var(--color-error) !important; }
-        .invalid:focus { box-shadow: 0 0 0 3px var(--color-error) !important; }
-        .checkbox-grid.invalid { border: 1px solid var(--color-error); border-radius: 8px; padding: 8px; }
+        .field.invalid .has-icon, .field.invalid select, .field.invalid textarea {
+            border-color: var(--color-error) !important;
+        }
+        .field.invalid label, .field.invalid .icon {
+            color: var(--color-error) !important;
+        }
+        .field.invalid input:focus, .field.invalid select:focus {
+            box-shadow: 0 0 0 3px var(--color-error) !important;
+        }
+        .field.invalid .checkbox-grid {
+            border: 1px solid var(--color-error);
+            border-radius: 8px;
+            padding: 10px;
+        }
     `;
     document.head.appendChild(style);
 
